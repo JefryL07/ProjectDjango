@@ -1,0 +1,127 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+<!-- ================================
+Start SEO blocks
+================================= -->
+{% block title %}{% endblock %}
+{% block decription %}{% endblock %}
+{% block keywords %}{% endblock %}
+<!-- ================================
+END SEO blocks
+================================= -->
+
+<!-- ================================
+Start CSS blocks
+================================= -->
+{% block extend_header %}{% endblock %}
+<!-- ================================
+END CSS blocks
+================================= -->
+
+<!-- ================================
+Start script blocks
+================================= -->
+{% block extend_footer %}{% endblock %}
+<!-- ================================
+END script blocks
+================================= -->
+
+<!-- ================================
+Start Content
+================================= -->
+{% block content %}
+
+<section>
+  <div class="bgContiner px 5">
+    <div class="container px-20">
+      <div class="row gx-5 justify-content-center">
+          <div class="col-lg-6">
+              <div class="text-center my-5">
+                  <h1 class="display-5 fw-bolder text-white mb-2">SHUEISHA BLOGS </h1>
+                  <p class="lead text-white-50 mb-4">Blogs y reviews de Animes y Mangas</p>
+                  <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+                      <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#contenido"></a>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+
+<section>
+  <div class="sectionSpace" id="contenido">
+    <div class="container">
+      <div class="portfolioCol">
+        <div class="row pb-3">
+          <div class="col">
+            <h4 class="smText regular">Animes y Mangas Destacados</h4>
+          </div>
+          <div class="col-auto">
+            <a href="{% url 'main:blogs' %}" class="simpleLink">View all</a>
+          </div>
+        </div>
+        {% for p in portfolio %}
+        {% if p.is_active %}
+        <div class="portfolioCard">
+          <div class="row g-4 align-items-center">
+            <div class="col-md-auto">
+              <div class="portfolioImgCol">
+                <a href="{% url 'main:portfolio' slug=p.slug %}"><img src="{{p.image.url}}" alt="..."></a>
+              </div>
+            </div>
+            <div class="col-md">
+              <div class="portfolioContentCol">
+                <h4 class="lgTitle"><a href="{% url 'main:portfolio' slug=p.slug %}">{{p.name}}</a></h4>
+                <ul class="portfolioOption">
+                  <li><span class="dateLbl">{{p.date.year}}</span></li>
+                </ul>
+                <p>{{p.description}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+        
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sectionSpaceSm lightBg">
+    <div class="container">
+      <div class="row pb-3">
+        <div class="col">
+          <h4 class="smText regular">Recent posts</h4>
+        </div>
+        <div class="col-auto">
+          <a href="{% url 'main:blogs' %}" class="simpleLink">View all</a>
+        </div>
+      </div>
+      <div class="row g-3">
+      {% for b in blogs %}
+      {% if b.is_active %}
+        <div class="col-lg-6">
+          <div class="cardStyle1">
+            <h4 class="mdTitle cs1Title"><a href="{% url 'main:blog' slug=b.slug %}">{{b.name}}</a></h4>
+            <ul class="cardOptionCol">
+              <li>{{b.timestamp.date}}</li>
+              <li>{{b.author}}</li>
+            </ul>
+            <p>{{b.description}}</p>
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+<!-- ================================
+End Content
+================================= -->
